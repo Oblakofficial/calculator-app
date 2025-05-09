@@ -116,11 +116,10 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Format regular numbers
-    return number.toLocaleString('en-US', {
-        maximumFractionDigits: 8,
-        minimumFractionDigits: 0
-    });
+    // Format regular numbers with commas
+    const parts = number.toString().split('.');
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    return parts.join('.');
 }
 
 // Memory functions
