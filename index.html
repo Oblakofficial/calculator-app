@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Calculator">
+    <title>Scientific Calculator</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="./icon-192.png">
+</head>
+<body>
+    <div class="calculator">
+        <div class="display">
+            <input type="text" id="result" readonly>
+        </div>
+        <div class="buttons">
+            <!-- Scientific Functions -->
+            <button class="scientific" onclick="calculateScientific('sin')">sin</button>
+            <button class="scientific" onclick="calculateScientific('cos')">cos</button>
+            <button class="scientific" onclick="calculateScientific('tan')">tan</button>
+            <button class="scientific" onclick="calculateScientific('sqrt')">√</button>
+            
+            <button class="scientific" onclick="calculateScientific('log')">log</button>
+            <button class="scientific" onclick="calculateScientific('ln')">ln</button>
+            <button class="scientific" onclick="calculateScientific('pow')">x²</button>
+            <button class="scientific" onclick="calculateScientific('pi')">π</button>
+            
+            <!-- Memory Functions -->
+            <button class="memory" onclick="memoryStore()">MS</button>
+            <button class="memory" onclick="memoryRecall()">MR</button>
+            <button class="memory" onclick="memoryClear()">MC</button>
+            <button class="memory" onclick="memoryAdd()">M+</button>
+            
+            <!-- Basic Operations -->
+            <button class="operator" onclick="clearDisplay()">C</button>
+            <button class="operator" onclick="deleteLastChar()">⌫</button>
+            <button class="operator" onclick="appendOperator('%')">%</button>
+            <button class="operator" onclick="appendOperator('/')">/</button>
+            
+            <button onclick="appendNumber('7')">7</button>
+            <button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button>
+            <button class="operator" onclick="appendOperator('*')">×</button>
+            
+            <button onclick="appendNumber('4')">4</button>
+            <button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button>
+            <button class="operator" onclick="appendOperator('-')">-</button>
+            
+            <button onclick="appendNumber('1')">1</button>
+            <button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button>
+            <button class="operator" onclick="appendOperator('+')">+</button>
+            
+            <button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button>
+            <button class="equals" onclick="calculate()">=</button>
+        </div>
+    </div>
+    <a href="./" class="home-button">⌂</a>
+    <script src="./calculator.js"></script>
+</body>
+</html>
