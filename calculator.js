@@ -2,6 +2,15 @@ let display = document.getElementById('result');
 let currentInput = '';
 let memory = 0;
 
+function formatNumber(number) {
+    // Split the number into integer and decimal parts
+    let parts = number.toString().split('.');
+    // Add commas to the integer part
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    // Join the parts back together
+    return parts.join('.');
+}
+
 function appendNumber(number) {
     currentInput += number;
     updateDisplay();
@@ -29,7 +38,24 @@ function deleteLastChar() {
 }
 
 function updateDisplay() {
-    display.value = currentInput;
+    // Format the display with commas
+    let displayValue = currentInput;
+    
+    // If there's a calculation result, format it
+    if (!isOperator(currentInput[currentInput.length - 1]) && currentInput !== '') {
+        try {
+            // Try to evaluate the expression
+            let result = eval(currentInput.replace('×', '*'));
+            if (!isNaN(result)) {
+                displayValue = formatNumber(result);
+            }
+        } catch (e) {
+            // If there's an error, just show the input
+            displayValue = currentInput;
+        }
+    }
+    
+    display.value = displayValue;
 }
 
 function calculate() {
