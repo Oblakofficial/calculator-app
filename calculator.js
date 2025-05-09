@@ -116,10 +116,20 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Format regular numbers with commas
-    const parts = number.toString().split('.');
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    return parts.join('.');
+    // Convert to string with fixed decimal places
+    let numStr = number.toFixed(8);
+    
+    // Remove trailing zeros after decimal point
+    numStr = numStr.replace(/\.?0+$/, '');
+    
+    // Split into integer and decimal parts
+    let [intPart, decPart] = numStr.split('.');
+    
+    // Add commas to integer part
+    intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    
+    // Combine parts
+    return decPart ? `${intPart}.${decPart}` : intPart;
 }
 
 // Memory functions
