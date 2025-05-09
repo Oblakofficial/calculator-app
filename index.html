@@ -2,127 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Super Calculator Pro</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Analytics Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/svg+xml" href="./icon.svg">
-    <link rel="apple-touch-icon" href="./icon.svg">
-    <link rel="manifest" href="manifest.json">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        html, body {
-            touch-action: manipulation;
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="calculator">
-        <div class="theme-toggle">
-            <button onclick="toggleTheme()" class="theme-btn">🌙</button>
-        </div>
-        <div class="display">
-            <div id="expression"></div>
-            <input type="text" id="result" readonly>
-        </div>
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('basic')">Basic</button>
-            <button class="tab-btn" onclick="switchTab('scientific')">Scientific</button>
-            <button class="tab-btn" onclick="switchTab('graph')">Graph</button>
-            <button class="tab-btn" onclick="switchTab('memory')">Memory</button>
-        </div>
-        <div class="tab-content" id="basic-tab">
-            <div class="buttons">
-                <button onclick="clearDisplay()">C</button>
-                <button class="delete-btn" onclick="deleteLastChar()">⌫</button>
-                <button onclick="appendToDisplay('%')">%</button>
-                <button class="operator" onclick="appendToDisplay('/')">/</button>
-                
-                <button onclick="appendToDisplay('7')">7</button>
-                <button onclick="appendToDisplay('8')">8</button>
-                <button onclick="appendToDisplay('9')">9</button>
-                <button class="operator" onclick="appendToDisplay('*')">×</button>
-                
-                <button onclick="appendToDisplay('4')">4</button>
-                <button onclick="appendToDisplay('5')">5</button>
-                <button onclick="appendToDisplay('6')">6</button>
-                <button class="operator" onclick="appendToDisplay('-')">-</button>
-                
-                <button onclick="appendToDisplay('1')">1</button>
-                <button onclick="appendToDisplay('2')">2</button>
-                <button onclick="appendToDisplay('3')">3</button>
-                <button class="operator" onclick="appendToDisplay('+')">+</button>
-                
-                <button onclick="appendToDisplay('0')">0</button>
-                <button onclick="appendToDisplay('.')">.</button>
-                <button class="equals" onclick="calculate()">=</button>
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>Data Analytics Dashboard</h1>
+            <div class="header-controls">
+                <button id="theme-toggle" class="theme-toggle">🌙</button>
+                <button id="export-btn" class="export-btn">Export Data</button>
+            </div>
+        </header>
+
+        <div class="metrics-overview">
+            <div class="metric-card">
+                <h3>Total Users</h3>
+                <p class="metric-value" id="total-users">0</p>
+                <p class="metric-change positive">+12.5%</p>
+            </div>
+            <div class="metric-card">
+                <h3>Revenue</h3>
+                <p class="metric-value" id="revenue">$0</p>
+                <p class="metric-change positive">+8.3%</p>
+            </div>
+            <div class="metric-card">
+                <h3>Active Sessions</h3>
+                <p class="metric-value" id="active-sessions">0</p>
+                <p class="metric-change negative">-2.1%</p>
+            </div>
+            <div class="metric-card">
+                <h3>Conversion Rate</h3>
+                <p class="metric-value" id="conversion-rate">0%</p>
+                <p class="metric-change positive">+5.7%</p>
             </div>
         </div>
-        <div class="tab-content hidden" id="scientific-tab">
-            <div class="buttons">
-                <button class="scientific" onclick="appendToDisplay('sin(')">sin</button>
-                <button class="scientific" onclick="appendToDisplay('cos(')">cos</button>
-                <button class="scientific" onclick="appendToDisplay('tan(')">tan</button>
-                <button class="scientific" onclick="appendToDisplay('log(')">log</button>
-                
-                <button class="scientific" onclick="appendToDisplay('sqrt(')">√</button>
-                <button class="scientific" onclick="appendToDisplay('^')">x^y</button>
-                <button class="scientific" onclick="appendToDisplay('pi')">π</button>
-                <button class="scientific" onclick="appendToDisplay('e')">e</button>
-                
-                <button class="scientific" onclick="appendToDisplay('(')">(</button>
-                <button class="scientific" onclick="appendToDisplay(')')">)</button>
-                <button class="scientific" onclick="appendToDisplay('abs(')">|x|</button>
-                <button class="scientific" onclick="appendToDisplay('!')">x!</button>
-                
-                <button class="scientific" onclick="appendToDisplay('deg2rad(')">deg→rad</button>
-                <button class="scientific" onclick="appendToDisplay('rad2deg(')">rad→deg</button>
-                <button class="scientific" onclick="appendToDisplay('round(')">round</button>
-                <button class="scientific" onclick="appendToDisplay('random()')">rand</button>
+
+        <div class="charts-container">
+            <div class="chart-card">
+                <h3>User Growth</h3>
+                <canvas id="userGrowthChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Revenue Distribution</h3>
+                <canvas id="revenueChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>Traffic Sources</h3>
+                <canvas id="trafficChart"></canvas>
+            </div>
+            <div class="chart-card">
+                <h3>User Engagement</h3>
+                <canvas id="engagementChart"></canvas>
             </div>
         </div>
-        <div class="tab-content hidden" id="graph-tab">
-            <div class="graph-container">
-                <canvas id="graphCanvas"></canvas>
-                <div class="graph-controls">
-                    <input type="text" id="functionInput" placeholder="Enter function (e.g., x^2)">
-                    <button onclick="plotFunction()">Plot</button>
-                    <button onclick="clearGraph()">Clear</button>
-                </div>
+
+        <div class="data-table-container">
+            <h3>Detailed Analytics</h3>
+            <div class="table-controls">
+                <input type="text" id="search-input" placeholder="Search...">
+                <select id="filter-select">
+                    <option value="all">All Data</option>
+                    <option value="users">Users</option>
+                    <option value="revenue">Revenue</option>
+                    <option value="sessions">Sessions</option>
+                </select>
             </div>
-        </div>
-        <div class="tab-content hidden" id="memory-tab">
-            <div class="memory-container">
-                <div class="memory-slots">
-                    <div class="memory-slot">
-                        <button class="memory" onclick="memoryStore('M1')">M1</button>
-                        <button class="memory-recall" onclick="memoryRecall('M1')">MR</button>
-                        <div class="memory-value" id="M1-value">Empty</div>
-                    </div>
-                    <div class="memory-slot">
-                        <button class="memory" onclick="memoryStore('M2')">M2</button>
-                        <button class="memory-recall" onclick="memoryRecall('M2')">MR</button>
-                        <div class="memory-value" id="M2-value">Empty</div>
-                    </div>
-                    <div class="memory-slot">
-                        <button class="memory" onclick="memoryStore('M3')">M3</button>
-                        <button class="memory-recall" onclick="memoryRecall('M3')">MR</button>
-                        <div class="memory-value" id="M3-value">Empty</div>
-                    </div>
-                    <div class="memory-slot">
-                        <button class="memory" onclick="memoryStore('M4')">M4</button>
-                        <button class="memory-recall" onclick="memoryRecall('M4')">MR</button>
-                        <div class="memory-value" id="M4-value">Empty</div>
-                    </div>
-                </div>
-                <div class="memory-history">
-                    <h3>Calculation History</h3>
-                    <div id="historyList"></div>
-                </div>
-            </div>
+            <table id="analytics-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Users</th>
+                        <th>Revenue</th>
+                        <th>Sessions</th>
+                        <th>Conversion</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Table data will be populated by JavaScript -->
+                </tbody>
+            </table>
         </div>
     </div>
-    <a href="https://oblakofficial.github.io/calculator-app/" class="home-button">⌂</a>
-    <script src="calculator.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
