@@ -78,12 +78,33 @@ function deleteLastChar() {
     expression.textContent = result.value;
 }
 
+function formatNumber(number) {
+    if (typeof number !== 'number') return number;
+    
+    // Handle very large or small numbers
+    if (Math.abs(number) > 1e10 || (Math.abs(number) < 1e-10 && number !== 0)) {
+        return number.toExponential(6);
+    }
+    
+    // Format regular numbers
+    const formatted = number.toLocaleString('en-US', {
+        maximumFractionDigits: 8,
+        minimumFractionDigits: 0,
+        useGrouping: true
+    });
+    
+    return formatted;
+}
+
 function calculate() {
     const result = document.getElementById('result');
     const expression = document.getElementById('expression');
     let calculation = result.value;
     
     try {
+        // Remove commas before calculation
+        calculation = calculation.replace(/,/g, '');
+        
         // Replace π with actual value
         calculation = calculation.replace(/π/g, '3.14159265359');
         
@@ -106,21 +127,6 @@ function calculate() {
         result.value = 'Error';
         expression.textContent = '';
     }
-}
-
-function formatNumber(number) {
-    if (typeof number !== 'number') return number;
-    
-    // Handle very large or small numbers
-    if (Math.abs(number) > 1e10 || (Math.abs(number) < 1e-10 && number !== 0)) {
-        return number.toExponential(6);
-    }
-    
-    // Format regular numbers
-    return number.toLocaleString('en-US', {
-        maximumFractionDigits: 8,
-        minimumFractionDigits: 0
-    });
 }
 
 // Memory functions
