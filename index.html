@@ -29,6 +29,7 @@
             <button class="tab-btn active" onclick="switchTab('basic')">Basic</button>
             <button class="tab-btn" onclick="switchTab('scientific')">Scientific</button>
             <button class="tab-btn" onclick="switchTab('graph')">Graph</button>
+            <button class="tab-btn" onclick="switchTab('converter')">Converter</button>
             <button class="tab-btn" onclick="switchTab('memory')">Memory</button>
         </div>
         <div class="tab-content" id="basic-tab">
@@ -88,6 +89,30 @@
                     <input type="text" id="functionInput" placeholder="Enter function (e.g., x^2)">
                     <button onclick="plotFunction()">Plot</button>
                     <button onclick="clearGraph()">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content hidden" id="converter-tab">
+            <div class="converter-container">
+                <div class="converter-type">
+                    <select id="converterType" onchange="updateConverterOptions()">
+                        <option value="currency">Currency</option>
+                        <option value="length">Length</option>
+                        <option value="weight">Weight</option>
+                        <option value="area">Area</option>
+                        <option value="volume">Volume</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="energy">Energy</option>
+                        <option value="force">Force</option>
+                    </select>
+                </div>
+                <div class="converter-input">
+                    <input type="number" id="converterValue" oninput="convert()" placeholder="Enter value">
+                    <select id="fromUnit" onchange="convert()"></select>
+                </div>
+                <div class="converter-output">
+                    <input type="text" id="convertedValue" readonly>
+                    <select id="toUnit" onchange="convert()"></select>
                 </div>
             </div>
         </div>
