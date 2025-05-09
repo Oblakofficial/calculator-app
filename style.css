@@ -268,8 +268,10 @@ button[onclick="deleteLastChar()"]:hover {
 .memory-container {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
     position: relative;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 .delete-btn {
@@ -294,8 +296,8 @@ button[onclick="deleteLastChar()"]:hover {
 .memory-slots {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
+    gap: 10px;
+    margin-bottom: 15px;
 }
 
 .memory-slot {
@@ -339,7 +341,7 @@ button[onclick="deleteLastChar()"]:hover {
 .memory-history {
     background: var(--button-bg);
     border-radius: 10px;
-    padding: 15px;
+    padding: 12px;
     max-height: 200px;
     overflow-y: auto;
 }
@@ -400,39 +402,85 @@ button[onclick="deleteLastChar()"]:hover {
     }
 
     .calculator {
-        padding: 15px;
+        padding: 12px;
         border-radius: 15px;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     #result {
-        height: 50px;
-        font-size: 20px;
-    }
-
-    .buttons {
-        gap: 8px;
-    }
-
-    button {
-        padding: 12px 8px;
+        height: 45px;
         font-size: 18px;
     }
 
+    .buttons {
+        gap: 6px;
+    }
+
+    button {
+        padding: 10px 6px;
+        font-size: 16px;
+    }
+
     .scientific {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .memory {
+        font-size: 12px;
+    }
+
+    .memory-container {
+        max-height: 300px;
+        gap: 10px;
+    }
+
+    .memory-slots {
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .memory-slot {
+        padding: 8px;
+    }
+
+    .memory-slot .memory,
+    .memory-slot .memory-recall {
+        font-size: 12px;
+        padding: 6px;
+    }
+
+    .memory-value {
+        font-size: 12px;
+        min-height: 20px;
+    }
+
+    .memory-history {
+        max-height: 120px;
+        padding: 8px;
+    }
+
+    .memory-history h3 {
         font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .history-item {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .history-time {
+        font-size: 10px;
     }
 
     .home-button {
-        width: 45px;
-        height: 45px;
-        font-size: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
     }
 
     .graph-container {
-        height: 200px;
+        height: 180px;
     }
 }
