@@ -11,12 +11,8 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -24,27 +20,15 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          fetch-depth: 0
-          ref: main
+          path: '.'
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '16'
-          cache: 'npm'
-
-      - name: Install dependencies
-        run: |
-          npm install -g serve
-
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: .
-          branch: gh-pages
-          clean: true
-          token: ${{ secrets.GITHUB_TOKEN }}
-          commit-message: "Deploy: ${{ github.event.head_commit.message }}"
-          single-commit: true 
+        uses: actions/deploy-pages@v2 
