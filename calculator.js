@@ -30,8 +30,6 @@ function switchTab(tabName) {
     
     if (tabName === 'graph' && !graph) {
         initGraph();
-    } else if (tabName === 'converter') {
-        updateConverterOptions();
     }
 }
 
@@ -250,156 +248,6 @@ function clearGraph() {
     document.getElementById('functionInput').value = '';
 }
 
-// Converter definitions
-const converterUnits = {
-    currency: {
-        USD: 1,
-        EUR: 0.92,
-        GBP: 0.79,
-        JPY: 151.62,
-        AUD: 1.52,
-        CAD: 1.35,
-        CHF: 0.90,
-        CNY: 7.23,
-        INR: 83.12
-    },
-    length: {
-        'm': 1,
-        'km': 0.001,
-        'cm': 100,
-        'mm': 1000,
-        'in': 39.37,
-        'ft': 3.28,
-        'yd': 1.09,
-        'mi': 0.00062
-    },
-    weight: {
-        'kg': 1,
-        'g': 1000,
-        'mg': 1000000,
-        'lb': 2.20462,
-        'oz': 35.274,
-        'ton': 0.001
-    },
-    area: {
-        'm²': 1,
-        'km²': 0.000001,
-        'cm²': 10000,
-        'mm²': 1000000,
-        'in²': 1550,
-        'ft²': 10.7639,
-        'yd²': 1.19599,
-        'ac': 0.000247
-    },
-    volume: {
-        'L': 1,
-        'mL': 1000,
-        'm³': 0.001,
-        'cm³': 1000,
-        'gal': 0.264172,
-        'qt': 1.05669,
-        'pt': 2.11338,
-        'fl oz': 33.814
-    },
-    temperature: {
-        'C': 'C',
-        'F': 'F',
-        'K': 'K'
-    },
-    energy: {
-        'J': 1,
-        'kJ': 0.001,
-        'cal': 0.239006,
-        'kcal': 0.000239,
-        'kWh': 0.000000277778,
-        'Wh': 0.000277778
-    },
-    force: {
-        'N': 1,
-        'kN': 0.001,
-        'lbf': 0.224809,
-        'kgf': 0.101972
-    }
-};
-
-function updateConverterOptions() {
-    const type = document.getElementById('converterType').value;
-    const fromUnit = document.getElementById('fromUnit');
-    const toUnit = document.getElementById('toUnit');
-    
-    // Clear existing options
-    fromUnit.innerHTML = '';
-    toUnit.innerHTML = '';
-    
-    // Add new options
-    const units = converterUnits[type];
-    for (const unit in units) {
-        fromUnit.add(new Option(unit, unit));
-        toUnit.add(new Option(unit, unit));
-    }
-    
-    // Set default "to" unit to something different
-    if (toUnit.options.length > 1) {
-        toUnit.selectedIndex = 1;
-    }
-    
-    // Clear values
-    document.getElementById('converterValue').value = '';
-    document.getElementById('convertedValue').value = '';
-}
-
-function convert() {
-    const type = document.getElementById('converterType').value;
-    const fromUnit = document.getElementById('fromUnit').value;
-    const toUnit = document.getElementById('toUnit').value;
-    const value = parseFloat(document.getElementById('converterValue').value);
-    
-    if (isNaN(value)) {
-        document.getElementById('convertedValue').value = '';
-        return;
-    }
-    
-    let result;
-    
-    if (type === 'temperature') {
-        // Special handling for temperature
-        result = convertTemperature(value, fromUnit, toUnit);
-    } else {
-        // Convert through base unit
-        const baseValue = value / converterUnits[type][fromUnit];
-        result = baseValue * converterUnits[type][toUnit];
-    }
-    
-    document.getElementById('convertedValue').value = formatNumber(result);
-}
-
-function convertTemperature(value, fromUnit, toUnit) {
-    let celsius;
-    
-    // Convert to Celsius first
-    switch (fromUnit) {
-        case 'C':
-            celsius = value;
-            break;
-        case 'F':
-            celsius = (value - 32) * 5/9;
-            break;
-        case 'K':
-            celsius = value - 273.15;
-            break;
-    }
-    
-    // Convert from Celsius to target unit
-    switch (toUnit) {
-        case 'C':
-            return celsius;
-        case 'F':
-            return (celsius * 9/5) + 32;
-        case 'K':
-            return celsius + 273.15;
-    }
-}
-
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     // Load saved theme
@@ -418,13 +266,4 @@ document.addEventListener('DOMContentLoaded', () => {
         const valueDisplay = document.getElementById(`${slot}-value`);
         valueDisplay.textContent = memory[slot] !== null ? formatNumber(memory[slot]) : 'Empty';
     });
-    
-    // Initialize converter
-    updateConverterOptions();
-    
-    // Add event listeners for converter
-    document.getElementById('converterType').addEventListener('change', updateConverterOptions);
-    document.getElementById('converterValue').addEventListener('input', convert);
-    document.getElementById('fromUnit').addEventListener('change', convert);
-    document.getElementById('toUnit').addEventListener('change', convert);
 }); 
