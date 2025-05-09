@@ -49,20 +49,24 @@ function deleteLastChar() {
 
 function updateDisplay() {
     try {
-        // If the input ends with a number, format it
-        if (currentInput !== '' && !isOperator(currentInput[currentInput.length - 1])) {
-            let parts = currentInput.split(/[\+\-\*\/]/);
-            let lastNumber = parts[parts.length - 1];
-            if (lastNumber !== '') {
-                let formattedNumber = formatNumber(parseFloat(lastNumber));
-                parts[parts.length - 1] = formattedNumber;
-                display.value = parts.join('');
-            } else {
-                display.value = currentInput;
+        // Format the display with commas while typing
+        let displayValue = currentInput;
+        
+        // Split the input by operators while preserving them
+        let parts = displayValue.split(/([\+\-\*\/])/);
+        
+        // Format each number part with commas
+        for (let i = 0; i < parts.length; i++) {
+            if (parts[i] && !isOperator(parts[i])) {
+                let num = parseFloat(parts[i]);
+                if (!isNaN(num)) {
+                    parts[i] = formatNumber(num);
+                }
             }
-        } else {
-            display.value = currentInput;
         }
+        
+        // Join the parts back together
+        display.value = parts.join('');
     } catch (error) {
         display.value = currentInput;
     }
@@ -70,8 +74,10 @@ function updateDisplay() {
 
 function calculate() {
     try {
+        // Remove commas before calculation
+        let expression = currentInput.replace(/,/g, '');
         // Replace × with * for calculation
-        let expression = currentInput.replace('×', '*');
+        expression = expression.replace('×', '*');
         let result = eval(expression);
         
         // Handle decimal places
