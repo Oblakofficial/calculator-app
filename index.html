@@ -94,13 +94,29 @@
         <div class="tab-content hidden" id="memory-tab">
             <div class="memory-container">
                 <div class="memory-slots">
-                    <button class="memory" onclick="memoryStore('M1')">M1</button>
-                    <button class="memory" onclick="memoryStore('M2')">M2</button>
-                    <button class="memory" onclick="memoryStore('M3')">M3</button>
-                    <button class="memory" onclick="memoryStore('M4')">M4</button>
+                    <div class="memory-slot">
+                        <button class="memory" onclick="memoryStore('M1')">M1</button>
+                        <button class="memory-recall" onclick="memoryRecall('M1')">MR</button>
+                        <div class="memory-value" id="M1-value">Empty</div>
+                    </div>
+                    <div class="memory-slot">
+                        <button class="memory" onclick="memoryStore('M2')">M2</button>
+                        <button class="memory-recall" onclick="memoryRecall('M2')">MR</button>
+                        <div class="memory-value" id="M2-value">Empty</div>
+                    </div>
+                    <div class="memory-slot">
+                        <button class="memory" onclick="memoryStore('M3')">M3</button>
+                        <button class="memory-recall" onclick="memoryRecall('M3')">MR</button>
+                        <div class="memory-value" id="M3-value">Empty</div>
+                    </div>
+                    <div class="memory-slot">
+                        <button class="memory" onclick="memoryStore('M4')">M4</button>
+                        <button class="memory-recall" onclick="memoryRecall('M4')">MR</button>
+                        <div class="memory-value" id="M4-value">Empty</div>
+                    </div>
                 </div>
                 <div class="memory-history">
-                    <h3>History</h3>
+                    <h3>Calculation History</h3>
                     <div id="historyList"></div>
                 </div>
             </div>

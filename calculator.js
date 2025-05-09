@@ -131,6 +131,10 @@ function memoryStore(slot) {
     const value = parseFloat(result.value.replace(/,/g, ''));
     memory[slot] = value;
     
+    // Update memory value display
+    const valueDisplay = document.getElementById(`${slot}-value`);
+    valueDisplay.textContent = formatNumber(value);
+    
     // Visual feedback
     const button = document.querySelector(`[onclick="memoryStore('${slot}')"]`);
     button.style.backgroundColor = 'var(--equals-bg)';
@@ -141,8 +145,9 @@ function memoryStore(slot) {
 
 function memoryRecall(slot) {
     if (memory[slot] !== null) {
-        document.getElementById('result').value = formatNumber(memory[slot]);
-        document.getElementById('expression').textContent = `M${slot.slice(1)} =`;
+        const result = document.getElementById('result');
+        result.value = formatNumber(memory[slot]);
+        document.getElementById('expression').textContent = result.value;
     }
 }
 
@@ -255,4 +260,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize display
     clearDisplay();
+    
+    // Initialize memory displays
+    ['M1', 'M2', 'M3', 'M4'].forEach(slot => {
+        const valueDisplay = document.getElementById(`${slot}-value`);
+        valueDisplay.textContent = memory[slot] !== null ? formatNumber(memory[slot]) : 'Empty';
+    });
 }); 
