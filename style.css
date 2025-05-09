@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     font-family: Arial, sans-serif;
+    touch-action: manipulation;
 }
 
 :root {
@@ -112,6 +113,8 @@ body {
     font-size: 24px;
     color: var(--text-color);
     transition: all 0.3s ease;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .tabs {
@@ -159,6 +162,8 @@ button {
     transition: all 0.3s ease;
     color: var(--text-color);
     background: var(--button-bg);
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
 }
 
 button:hover {

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Super Calculator Pro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="./icon.svg">
@@ -10,6 +10,11 @@
     <link rel="manifest" href="manifest.json">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        html, body {
+            touch-action: manipulation;
+        }
+    </style>
 </head>
 <body>
     <div class="calculator">
