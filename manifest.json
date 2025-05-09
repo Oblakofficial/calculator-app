@@ -1,10 +1,10 @@
 {
     "name": "Scientific Calculator",
     "short_name": "Calculator",
-    "description": "A scientific calculator with memory functions",
+    "description": "A scientific calculator web app",
     "start_url": "./",
     "display": "standalone",
-    "background_color": "#e6f3ff",
+    "background_color": "#ffffff",
     "theme_color": "#4dabf7",
     "orientation": "portrait",
     "icons": [
