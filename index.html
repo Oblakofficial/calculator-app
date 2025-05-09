@@ -95,7 +95,7 @@
         <div class="tab-content hidden" id="converter-tab">
             <div class="converter-container">
                 <div class="converter-type">
-                    <select id="converterType" onchange="updateConverterOptions()">
+                    <select id="converterType">
                         <option value="currency">Currency</option>
                         <option value="length">Length</option>
                         <option value="weight">Weight</option>
@@ -107,12 +107,12 @@
                     </select>
                 </div>
                 <div class="converter-input">
-                    <input type="number" id="converterValue" oninput="convert()" placeholder="Enter value">
-                    <select id="fromUnit" onchange="convert()"></select>
+                    <input type="number" id="converterValue" placeholder="Enter value">
+                    <select id="fromUnit"></select>
                 </div>
                 <div class="converter-output">
                     <input type="text" id="convertedValue" readonly>
-                    <select id="toUnit" onchange="convert()"></select>
+                    <select id="toUnit"></select>
                 </div>
             </div>
         </div>

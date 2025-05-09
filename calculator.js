@@ -30,6 +30,8 @@ function switchTab(tabName) {
     
     if (tabName === 'graph' && !graph) {
         initGraph();
+    } else if (tabName === 'converter') {
+        updateConverterOptions();
     }
 }
 
@@ -330,10 +332,11 @@ function updateConverterOptions() {
     toUnit.innerHTML = '';
     
     // Add new options
-    Object.keys(converterUnits[type]).forEach(unit => {
+    const units = converterUnits[type];
+    for (const unit in units) {
         fromUnit.add(new Option(unit, unit));
         toUnit.add(new Option(unit, unit));
-    });
+    }
     
     // Set default "to" unit to something different
     if (toUnit.options.length > 1) {
@@ -418,4 +421,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize converter
     updateConverterOptions();
+    
+    // Add event listeners for converter
+    document.getElementById('converterType').addEventListener('change', updateConverterOptions);
+    document.getElementById('converterValue').addEventListener('input', convert);
+    document.getElementById('fromUnit').addEventListener('change', convert);
+    document.getElementById('toUnit').addEventListener('change', convert);
 }); 
