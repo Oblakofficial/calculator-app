@@ -34,7 +34,6 @@
         <div class="tab-content" id="basic-tab">
             <div class="buttons">
                 <button onclick="clearDisplay()">C</button>
-                <button onclick="deleteLastChar()">⌫</button>
                 <button onclick="appendToDisplay('%')">%</button>
                 <button class="operator" onclick="appendToDisplay('/')">/</button>
                 
@@ -103,6 +102,7 @@
                     <h3>History</h3>
                     <div id="historyList"></div>
                 </div>
+                <button class="delete-btn" onclick="deleteLastChar()">⌫</button>
             </div>
         </div>
     </div>
