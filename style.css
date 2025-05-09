@@ -10,7 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #e6f3ff;
+    background: #f0f2f5;
     padding: 20px;
 }
 
@@ -22,7 +22,6 @@ body {
     width: 100%;
     max-width: 400px;
     min-height: auto;
-    border: 2px solid #4dabf7;
 }
 
 .display {
@@ -39,7 +38,6 @@ body {
     padding: 0 15px;
     font-size: 24px;
     color: #333;
-    border: 1px solid #4dabf7;
 }
 
 .buttons {
@@ -48,106 +46,73 @@ body {
     gap: 10px;
 }
 
-/* Number buttons */
-button:not(.operator):not(.scientific):not(.memory):not(.equals) {
-    background: #e9ecef !important;
-    color: #495057 !important;
-    border: 1px solid #dee2e6 !important;
-    font-weight: 500;
+button {
     padding: 15px 10px;
     font-size: 20px;
+    border: none;
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.2s ease;
+}
+
+button:not(.operator):not(.scientific):not(.memory):not(.equals) {
+    background: #e9ecef;
+    color: #495057;
 }
 
 button:not(.operator):not(.scientific):not(.memory):not(.equals):hover {
-    background: #dee2e6 !important;
+    background: #dee2e6;
 }
 
-/* Delete button */
 button[onclick="deleteLastChar()"] {
-    background: #ff6b6b !important;
-    color: white !important;
-    font-size: 22px !important;
-    border: 1px solid #fa5252 !important;
-    font-weight: bold;
-    padding: 15px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: #ff6b6b;
+    color: white;
+    font-size: 20px;
 }
 
 button[onclick="deleteLastChar()"]:hover {
-    background: #fa5252 !important;
+    background: #fa5252;
 }
 
 .operator {
-    background: #d0ebff !important;
-    color: #1971c2 !important;
-    border: 1px solid #4dabf7 !important;
-    font-weight: 500;
-    padding: 15px 10px;
-    font-size: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: #d0ebff;
+    color: #1971c2;
 }
 
 .operator:hover {
-    background: #a5d8ff !important;
+    background: #a5d8ff;
 }
 
 .scientific {
-    background: #e7f5ff !important;
-    color: #1971c2 !important;
-    font-size: 16px !important;
-    border: 1px solid #4dabf7 !important;
-    font-weight: 500;
-    padding: 15px 10px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: #e7f5ff;
+    color: #1971c2;
+    font-size: 16px;
 }
 
 .scientific:hover {
-    background: #d0ebff !important;
+    background: #d0ebff;
 }
 
 .memory {
-    background: #e7f5ff !important;
-    color: #1971c2 !important;
-    border: 1px solid #4dabf7 !important;
-    font-weight: 500;
-    padding: 15px 10px;
+    background: #e7f5ff;
+    color: #1971c2;
     font-size: 16px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
 }
 
 .memory:hover {
-    background: #d0ebff !important;
+    background: #d0ebff;
 }
 
 .equals {
-    background: #4dabf7 !important;
-    color: white !important;
-    grid-column: span 2 !important;
-    border: 1px solid #339af0 !important;
-    font-weight: bold;
-    padding: 15px 10px;
-    font-size: 20px;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
+    background: #4dabf7;
+    color: white;
+    grid-column: span 2;
 }
 
 .equals:hover {
-    background: #339af0 !important;
+    background: #339af0;
 }
 
-/* Home button */
 .home-button {
     position: fixed;
     bottom: 20px;
@@ -163,8 +128,7 @@ button[onclick="deleteLastChar()"]:hover {
     text-decoration: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
-    font-size: 28px;
-    font-weight: bold;
+    font-size: 24px;
 }
 
 .home-button:hover {
@@ -172,7 +136,6 @@ button[onclick="deleteLastChar()"]:hover {
     transform: scale(1.1);
 }
 
-/* Mobile Responsiveness */
 @media screen and (max-width: 480px) {
     body {
         padding: 10px;
@@ -198,7 +161,7 @@ button[onclick="deleteLastChar()"]:hover {
     }
 
     .scientific {
-        font-size: 14px !important;
+        font-size: 14px;
     }
 
     .memory {
@@ -208,6 +171,6 @@ button[onclick="deleteLastChar()"]:hover {
     .home-button {
         width: 45px;
         height: 45px;
-        font-size: 24px;
+        font-size: 20px;
     }
 }
