@@ -78,6 +78,10 @@ function deleteLastChar() {
     expression.textContent = result.value;
 }
 
+function addCommas(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 function formatNumber(number) {
     if (typeof number !== 'number') return number;
     
@@ -86,13 +90,10 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Convert to string and split into parts
-    const parts = number.toString().split('.');
-    
-    // Add commas to the integer part
-    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    
-    // Return formatted number
+    // Handle regular numbers
+    const numStr = number.toString();
+    const parts = numStr.split('.');
+    parts[0] = addCommas(parts[0]);
     return parts.join('.');
 }
 
@@ -117,8 +118,7 @@ function calculate() {
         const answer = math.evaluate(calculation);
         
         // Format and display the result
-        const formattedAnswer = formatNumber(answer);
-        result.value = formattedAnswer;
+        result.value = formatNumber(answer);
         expression.textContent = calculation + ' =';
         
         // Add to history
