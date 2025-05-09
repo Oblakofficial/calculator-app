@@ -46,77 +46,78 @@ body {
     gap: 12px;
 }
 
-button {
-    border: none;
-    background: #f1f3f5;
-    padding: 18px;
-    font-size: 18px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    color: #495057;
-    border: 1px solid #dee2e6;
+/* Number buttons */
+button:not(.operator):not(.scientific):not(.memory):not(.equals) {
+    background: #e9ecef !important;
+    color: #495057 !important;
+    border: 1px solid #dee2e6 !important;
+    font-weight: 500;
 }
 
-button:hover {
-    background: #e9ecef;
+button:not(.operator):not(.scientific):not(.memory):not(.equals):hover {
+    background: #dee2e6 !important;
 }
 
-.operator {
-    background: #d0ebff;
-    color: #1971c2;
-    border: 1px solid #4dabf7;
-}
-
-.operator:hover {
-    background: #a5d8ff;
-}
-
-.scientific {
-    background: #e7f5ff;
-    color: #1971c2;
-    font-size: 16px;
-    border: 1px solid #4dabf7;
-}
-
-.scientific:hover {
-    background: #d0ebff;
-}
-
-.memory {
-    background: #e7f5ff;
-    color: #1971c2;
-    border: 1px solid #4dabf7;
-}
-
-.memory:hover {
-    background: #d0ebff;
-}
-
-.equals {
-    background: #4dabf7;
-    color: white;
-    grid-column: span 2;
-    border: 1px solid #339af0;
-}
-
-.equals:hover {
-    background: #339af0;
-}
-
-/* Delete button specific styles */
+/* Delete button */
 button[onclick="deleteLastChar()"] {
-    background: #ff6b6b;
-    color: white;
-    font-size: 24px;
-    border: 1px solid #fa5252;
+    background: #ff6b6b !important;
+    color: white !important;
+    font-size: 24px !important;
+    border: 1px solid #fa5252 !important;
+    font-weight: bold;
 }
 
 button[onclick="deleteLastChar()"]:hover {
-    background: #fa5252;
+    background: #fa5252 !important;
 }
 
-/* Add a home button */
+.operator {
+    background: #d0ebff !important;
+    color: #1971c2 !important;
+    border: 1px solid #4dabf7 !important;
+    font-weight: 500;
+}
+
+.operator:hover {
+    background: #a5d8ff !important;
+}
+
+.scientific {
+    background: #e7f5ff !important;
+    color: #1971c2 !important;
+    font-size: 16px !important;
+    border: 1px solid #4dabf7 !important;
+    font-weight: 500;
+}
+
+.scientific:hover {
+    background: #d0ebff !important;
+}
+
+.memory {
+    background: #e7f5ff !important;
+    color: #1971c2 !important;
+    border: 1px solid #4dabf7 !important;
+    font-weight: 500;
+}
+
+.memory:hover {
+    background: #d0ebff !important;
+}
+
+.equals {
+    background: #4dabf7 !important;
+    color: white !important;
+    grid-column: span 2 !important;
+    border: 1px solid #339af0 !important;
+    font-weight: bold;
+}
+
+.equals:hover {
+    background: #339af0 !important;
+}
+
+/* Home button */
 .home-button {
     position: fixed;
     bottom: 20px;
@@ -133,6 +134,7 @@ button[onclick="deleteLastChar()"]:hover {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     transition: all 0.2s ease;
     font-size: 32px;
+    font-weight: bold;
 }
 
 .home-button:hover {
