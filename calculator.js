@@ -116,20 +116,12 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Convert to string with fixed decimal places
-    let numStr = number.toFixed(8);
-    
-    // Remove trailing zeros after decimal point
-    numStr = numStr.replace(/\.?0+$/, '');
-    
-    // Split into integer and decimal parts
-    let [intPart, decPart] = numStr.split('.');
-    
-    // Add commas to integer part
-    intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-    
-    // Combine parts
-    return decPart ? `${intPart}.${decPart}` : intPart;
+    // Use Intl.NumberFormat for consistent formatting
+    return new Intl.NumberFormat('en-US', {
+        maximumFractionDigits: 8,
+        minimumFractionDigits: 0,
+        useGrouping: true
+    }).format(number);
 }
 
 // Memory functions
