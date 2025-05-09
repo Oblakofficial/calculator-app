@@ -116,12 +116,11 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Use Intl.NumberFormat for consistent formatting
-    return new Intl.NumberFormat('en-US', {
+    // Format regular numbers
+    return number.toLocaleString('en-US', {
         maximumFractionDigits: 8,
-        minimumFractionDigits: 0,
-        useGrouping: true
-    }).format(number);
+        minimumFractionDigits: 0
+    });
 }
 
 // Memory functions
