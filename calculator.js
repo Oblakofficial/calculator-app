@@ -3,12 +3,22 @@ let currentInput = '';
 let memory = 0;
 
 function formatNumber(number) {
-    // Split the number into integer and decimal parts
-    let parts = number.toString().split('.');
-    // Add commas to the integer part
+    // Convert to string and handle negative numbers
+    let numStr = number.toString();
+    let isNegative = numStr.startsWith('-');
+    if (isNegative) {
+        numStr = numStr.substring(1);
+    }
+
+    // Split into integer and decimal parts
+    let parts = numStr.split('.');
+    
+    // Format integer part with commas
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    // Join the parts back together
-    return parts.join('.');
+    
+    // Join parts and restore negative sign
+    let result = parts.join('.');
+    return isNegative ? '-' + result : result;
 }
 
 function appendNumber(number) {
@@ -38,24 +48,24 @@ function deleteLastChar() {
 }
 
 function updateDisplay() {
-    // Format the display with commas
-    let displayValue = currentInput;
-    
-    // If there's a calculation result, format it
-    if (!isOperator(currentInput[currentInput.length - 1]) && currentInput !== '') {
-        try {
-            // Try to evaluate the expression
-            let result = eval(currentInput.replace('×', '*'));
-            if (!isNaN(result)) {
-                displayValue = formatNumber(result);
+    try {
+        // If the input ends with a number, format it
+        if (currentInput !== '' && !isOperator(currentInput[currentInput.length - 1])) {
+            let parts = currentInput.split(/[\+\-\*\/]/);
+            let lastNumber = parts[parts.length - 1];
+            if (lastNumber !== '') {
+                let formattedNumber = formatNumber(parseFloat(lastNumber));
+                parts[parts.length - 1] = formattedNumber;
+                display.value = parts.join('');
+            } else {
+                display.value = currentInput;
             }
-        } catch (e) {
-            // If there's an error, just show the input
-            displayValue = currentInput;
+        } else {
+            display.value = currentInput;
         }
+    } catch (error) {
+        display.value = currentInput;
     }
-    
-    display.value = displayValue;
 }
 
 function calculate() {
