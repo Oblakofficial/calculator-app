@@ -86,14 +86,14 @@ function formatNumber(number) {
         return number.toExponential(6);
     }
     
-    // Format regular numbers
-    const formatted = number.toLocaleString('en-US', {
-        maximumFractionDigits: 8,
-        minimumFractionDigits: 0,
-        useGrouping: true
-    });
+    // Convert to string and split into parts
+    const parts = number.toString().split('.');
     
-    return formatted;
+    // Add commas to the integer part
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    
+    // Return formatted number
+    return parts.join('.');
 }
 
 function calculate() {
@@ -102,7 +102,7 @@ function calculate() {
     let calculation = result.value;
     
     try {
-        // Remove commas before calculation
+        // Remove any commas from the input
         calculation = calculation.replace(/,/g, '');
         
         // Replace π with actual value
@@ -116,8 +116,9 @@ function calculate() {
         // Evaluate the expression
         const answer = math.evaluate(calculation);
         
-        // Format the result
-        result.value = formatNumber(answer);
+        // Format and display the result
+        const formattedAnswer = formatNumber(answer);
+        result.value = formattedAnswer;
         expression.textContent = calculation + ' =';
         
         // Add to history
@@ -134,6 +135,7 @@ function memoryStore(slot) {
     const result = document.getElementById('result');
     if (result.value === 'Error') return;
     
+    // Remove commas before storing
     const value = parseFloat(result.value.replace(/,/g, ''));
     memory[slot] = value;
     
