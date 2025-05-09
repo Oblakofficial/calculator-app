@@ -5,39 +5,143 @@
     font-family: Arial, sans-serif;
 }
 
+:root {
+    --bg-color: #f0f2f5;
+    --calc-bg: #ffffff;
+    --button-bg: #e9ecef;
+    --button-hover: #dee2e6;
+    --text-color: #333;
+    --operator-bg: #d0ebff;
+    --operator-color: #1971c2;
+    --equals-bg: #4dabf7;
+    --equals-color: white;
+    --scientific-bg: #e7f5ff;
+    --memory-bg: #e7f5ff;
+    --delete-bg: #ff6b6b;
+    --delete-color: white;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --border-color: #dee2e6;
+}
+
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --calc-bg: #2d2d2d;
+    --button-bg: #3d3d3d;
+    --button-hover: #4d4d4d;
+    --text-color: #ffffff;
+    --operator-bg: #1a4b8c;
+    --operator-color: #ffffff;
+    --equals-bg: #1a4b8c;
+    --equals-color: white;
+    --scientific-bg: #1a4b8c;
+    --memory-bg: #1a4b8c;
+    --delete-bg: #8b0000;
+    --delete-color: white;
+    --shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    --border-color: #4d4d4d;
+}
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    background: #f0f2f5;
+    background: var(--bg-color);
     padding: 20px;
+    transition: background-color 0.3s ease;
 }
 
 .calculator {
-    background: #ffffff;
+    background: var(--calc-bg);
     border-radius: 20px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow);
     padding: 20px;
     width: 100%;
     max-width: 400px;
     min-height: auto;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
+
+.theme-btn {
+    background: var(--button-bg);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-btn:hover {
+    transform: scale(1.1);
+    background: var(--button-hover);
 }
 
 .display {
     margin-bottom: 20px;
 }
 
+#expression {
+    width: 100%;
+    min-height: 30px;
+    background: var(--calc-bg);
+    border-radius: 12px;
+    text-align: right;
+    padding: 5px 15px;
+    font-size: 18px;
+    color: var(--text-color);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
 #result {
     width: 100%;
     height: 60px;
     border: none;
-    background: #f8f9fa;
+    background: var(--button-bg);
     border-radius: 12px;
     text-align: right;
     padding: 0 15px;
     font-size: 24px;
-    color: #333;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--button-bg);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+    background: var(--operator-bg);
+    color: var(--operator-color);
+}
+
+.tab-content {
+    transition: all 0.3s ease;
+}
+
+.tab-content.hidden {
+    display: none;
 }
 
 .buttons {
@@ -52,65 +156,139 @@ button {
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
+    color: var(--text-color);
+    background: var(--button-bg);
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: translateY(0);
 }
 
 button:not(.operator):not(.scientific):not(.memory):not(.equals) {
-    background: #e9ecef;
-    color: #495057;
+    background: var(--button-bg);
 }
 
 button:not(.operator):not(.scientific):not(.memory):not(.equals):hover {
-    background: #dee2e6;
+    background: var(--button-hover);
 }
 
 button[onclick="deleteLastChar()"] {
-    background: #ff6b6b;
-    color: white;
+    background: var(--delete-bg);
+    color: var(--delete-color);
     font-size: 20px;
 }
 
 button[onclick="deleteLastChar()"]:hover {
-    background: #fa5252;
+    background: var(--delete-bg);
+    opacity: 0.9;
 }
 
 .operator {
-    background: #d0ebff;
-    color: #1971c2;
+    background: var(--operator-bg);
+    color: var(--operator-color);
 }
 
 .operator:hover {
-    background: #a5d8ff;
+    background: var(--operator-bg);
+    opacity: 0.9;
 }
 
 .scientific {
-    background: #e7f5ff;
-    color: #1971c2;
+    background: var(--scientific-bg);
+    color: var(--operator-color);
     font-size: 16px;
 }
 
 .scientific:hover {
-    background: #d0ebff;
+    background: var(--scientific-bg);
+    opacity: 0.9;
 }
 
 .memory {
-    background: #e7f5ff;
-    color: #1971c2;
+    background: var(--memory-bg);
+    color: var(--operator-color);
     font-size: 16px;
 }
 
 .memory:hover {
-    background: #d0ebff;
+    background: var(--memory-bg);
+    opacity: 0.9;
 }
 
 .equals {
-    background: #4dabf7;
-    color: white;
+    background: var(--equals-bg);
+    color: var(--equals-color);
     grid-column: span 2;
 }
 
 .equals:hover {
-    background: #339af0;
+    background: var(--equals-bg);
+    opacity: 0.9;
+}
+
+.graph-container {
+    width: 100%;
+    height: 300px;
+    margin-bottom: 20px;
+}
+
+#graphCanvas {
+    width: 100%;
+    height: 100%;
+    background: var(--button-bg);
+    border-radius: 10px;
+}
+
+.graph-controls {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.graph-controls input {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    background: var(--button-bg);
+    color: var(--text-color);
+}
+
+.memory-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.memory-slots {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.memory-history {
+    background: var(--button-bg);
+    border-radius: 10px;
+    padding: 15px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.memory-history h3 {
+    color: var(--text-color);
+    margin-bottom: 10px;
+}
+
+#historyList {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .home-button {
@@ -119,21 +297,22 @@ button[onclick="deleteLastChar()"]:hover {
     right: 20px;
     width: 50px;
     height: 50px;
-    background: #4dabf7;
+    background: var(--equals-bg);
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
     text-decoration: none;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
     font-size: 24px;
 }
 
 .home-button:hover {
-    background: #339af0;
     transform: scale(1.1);
+    background: var(--equals-bg);
+    opacity: 0.9;
 }
 
 @media screen and (max-width: 480px) {
@@ -172,5 +351,9 @@ button[onclick="deleteLastChar()"]:hover {
         width: 45px;
         height: 45px;
         font-size: 20px;
+    }
+
+    .graph-container {
+        height: 200px;
     }
 }

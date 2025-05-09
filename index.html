@@ -2,67 +2,106 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Scientific Calculator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Calculator Pro</title>
     <link rel="stylesheet" href="style.css">
     <link rel="icon" type="image/svg+xml" href="./icon.svg">
     <link rel="apple-touch-icon" href="./icon.svg">
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#4dabf7">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Calculator">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
     <div class="calculator">
+        <div class="theme-toggle">
+            <button onclick="toggleTheme()" class="theme-btn">🌙</button>
+        </div>
         <div class="display">
+            <div id="expression"></div>
             <input type="text" id="result" readonly>
         </div>
-        <div class="buttons">
-            <!-- Scientific Functions -->
-            <button class="scientific" onclick="calculateScientific('sin')">sin</button>
-            <button class="scientific" onclick="calculateScientific('cos')">cos</button>
-            <button class="scientific" onclick="calculateScientific('tan')">tan</button>
-            <button class="scientific" onclick="calculateScientific('sqrt')">√</button>
-            
-            <button class="scientific" onclick="calculateScientific('log')">log</button>
-            <button class="scientific" onclick="calculateScientific('ln')">ln</button>
-            <button class="scientific" onclick="calculateScientific('pow')">x²</button>
-            <button class="scientific" onclick="calculateScientific('pi')">π</button>
-            
-            <!-- Memory Functions -->
-            <button class="memory" onclick="memoryStore()">MS</button>
-            <button class="memory" onclick="memoryRecall()">MR</button>
-            <button class="memory" onclick="memoryClear()">MC</button>
-            <button class="memory" onclick="memoryAdd()">M+</button>
-            
-            <!-- Basic Operations -->
-            <button class="operator" onclick="clearDisplay()">C</button>
-            <button class="operator" onclick="deleteLastChar()">⌫</button>
-            <button class="operator" onclick="appendOperator('%')">%</button>
-            <button class="operator" onclick="appendOperator('/')">/</button>
-            
-            <button onclick="appendNumber('7')">7</button>
-            <button onclick="appendNumber('8')">8</button>
-            <button onclick="appendNumber('9')">9</button>
-            <button class="operator" onclick="appendOperator('*')">×</button>
-            
-            <button onclick="appendNumber('4')">4</button>
-            <button onclick="appendNumber('5')">5</button>
-            <button onclick="appendNumber('6')">6</button>
-            <button class="operator" onclick="appendOperator('-')">-</button>
-            
-            <button onclick="appendNumber('1')">1</button>
-            <button onclick="appendNumber('2')">2</button>
-            <button onclick="appendNumber('3')">3</button>
-            <button class="operator" onclick="appendOperator('+')">+</button>
-            
-            <button onclick="appendNumber('0')">0</button>
-            <button onclick="appendNumber('.')">.</button>
-            <button class="equals" onclick="calculate()">=</button>
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('basic')">Basic</button>
+            <button class="tab-btn" onclick="switchTab('scientific')">Scientific</button>
+            <button class="tab-btn" onclick="switchTab('graph')">Graph</button>
+            <button class="tab-btn" onclick="switchTab('memory')">Memory</button>
+        </div>
+        <div class="tab-content" id="basic-tab">
+            <div class="buttons">
+                <button onclick="clearDisplay()">C</button>
+                <button onclick="deleteLastChar()">⌫</button>
+                <button onclick="appendToDisplay('%')">%</button>
+                <button class="operator" onclick="appendToDisplay('/')">/</button>
+                
+                <button onclick="appendToDisplay('7')">7</button>
+                <button onclick="appendToDisplay('8')">8</button>
+                <button onclick="appendToDisplay('9')">9</button>
+                <button class="operator" onclick="appendToDisplay('*')">×</button>
+                
+                <button onclick="appendToDisplay('4')">4</button>
+                <button onclick="appendToDisplay('5')">5</button>
+                <button onclick="appendToDisplay('6')">6</button>
+                <button class="operator" onclick="appendToDisplay('-')">-</button>
+                
+                <button onclick="appendToDisplay('1')">1</button>
+                <button onclick="appendToDisplay('2')">2</button>
+                <button onclick="appendToDisplay('3')">3</button>
+                <button class="operator" onclick="appendToDisplay('+')">+</button>
+                
+                <button onclick="appendToDisplay('0')">0</button>
+                <button onclick="appendToDisplay('.')">.</button>
+                <button class="equals" onclick="calculate()">=</button>
+            </div>
+        </div>
+        <div class="tab-content hidden" id="scientific-tab">
+            <div class="buttons">
+                <button class="scientific" onclick="appendToDisplay('sin(')">sin</button>
+                <button class="scientific" onclick="appendToDisplay('cos(')">cos</button>
+                <button class="scientific" onclick="appendToDisplay('tan(')">tan</button>
+                <button class="scientific" onclick="appendToDisplay('log(')">log</button>
+                
+                <button class="scientific" onclick="appendToDisplay('sqrt(')">√</button>
+                <button class="scientific" onclick="appendToDisplay('^')">x^y</button>
+                <button class="scientific" onclick="appendToDisplay('pi')">π</button>
+                <button class="scientific" onclick="appendToDisplay('e')">e</button>
+                
+                <button class="scientific" onclick="appendToDisplay('(')">(</button>
+                <button class="scientific" onclick="appendToDisplay(')')">)</button>
+                <button class="scientific" onclick="appendToDisplay('abs(')">|x|</button>
+                <button class="scientific" onclick="appendToDisplay('!')">x!</button>
+                
+                <button class="scientific" onclick="appendToDisplay('deg2rad(')">deg→rad</button>
+                <button class="scientific" onclick="appendToDisplay('rad2deg(')">rad→deg</button>
+                <button class="scientific" onclick="appendToDisplay('round(')">round</button>
+                <button class="scientific" onclick="appendToDisplay('random()')">rand</button>
+            </div>
+        </div>
+        <div class="tab-content hidden" id="graph-tab">
+            <div class="graph-container">
+                <canvas id="graphCanvas"></canvas>
+                <div class="graph-controls">
+                    <input type="text" id="functionInput" placeholder="Enter function (e.g., x^2)">
+                    <button onclick="plotFunction()">Plot</button>
+                    <button onclick="clearGraph()">Clear</button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-content hidden" id="memory-tab">
+            <div class="memory-container">
+                <div class="memory-slots">
+                    <button class="memory" onclick="memoryStore('M1')">M1</button>
+                    <button class="memory" onclick="memoryStore('M2')">M2</button>
+                    <button class="memory" onclick="memoryStore('M3')">M3</button>
+                    <button class="memory" onclick="memoryStore('M4')">M4</button>
+                </div>
+                <div class="memory-history">
+                    <h3>History</h3>
+                    <div id="historyList"></div>
+                </div>
+            </div>
         </div>
     </div>
-    <a href="./" class="home-button">⌂</a>
-    <script src="./calculator.js"></script>
+    <a href="https://oblakofficial.github.io/calculator-app/" class="home-button">⌂</a>
+    <script src="calculator.js"></script>
 </body>
 </html>
